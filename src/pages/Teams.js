@@ -1,8 +1,10 @@
+// Teams.js
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 import { FaGithub } from '@react-icons/all-files/fa/FaGithub';
 import { FaLinkedin } from '@react-icons/all-files/fa/FaLinkedin';
+import Navbar from '../components/Navbar';  // Import the Navbar component
 
 const getInitialAvatar = (name) => {
   const initials = name.split(' ')
@@ -23,7 +25,7 @@ const TeamMemberCard = ({ name, position, image, github, linkedin }) => {
     <div className="flip-card w-64 h-80">
       <div className="flip-card-inner">
         <div className="flip-card-front">
-          <div className="h-full bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+          <div className="h-full bg-black/30 backdrop-blur-sm rounded-xl p-4">
             {image ? (
               <img 
                 src={image} 
@@ -38,14 +40,26 @@ const TeamMemberCard = ({ name, position, image, github, linkedin }) => {
           </div>
         </div>
         <div className="flip-card-back">
-          <div className="h-full bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-white/10 flex flex-col items-center justify-center">
+          <div className="h-full bg-black/10 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center justify-center">
             <div className="space-y-4">
+              <div className="opacity-20">
+                {image ? (
+                  <img 
+                    src={image} 
+                    alt={name}
+                    className="w-20 h-20 rounded-full mx-auto mb-2 object-cover"
+                  />
+                ) : (
+                  getInitialAvatar(name)
+                )}
+                <h3 className="text-lg font-bold text-white mb-1 text-center">{name}</h3>
+              </div>
               {github && (
                 <a 
                   href={github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
+                  className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors no-underline"
                 >
                   <FaGithub className="w-8 h-8" />
                   <span>GitHub</span>
@@ -56,7 +70,7 @@ const TeamMemberCard = ({ name, position, image, github, linkedin }) => {
                   href={linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
+                  className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors no-underline"
                 >
                   <FaLinkedin className="w-8 h-8" />
                   <span>LinkedIn</span>
@@ -450,61 +464,64 @@ const Teams = () => {
   };
 
   return (
-    <div ref={mountRef} className="min-h-screen">
-      <div className="relative z-10">
-        <div className="container mx-auto px-4 py-20">
-          {/* Leadership Section */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col items-center mb-20"
-          >
-            <h2 className="text-4xl font-bold text-white mb-12 text-center">Leadership</h2>
-            <TeamMemberCard {...teamData.leadership.head} />
-            <div className="mt-12 flex flex-wrap justify-center gap-8">
-              <TeamMemberCard {...teamData.leadership.techLead} />
-              <TeamMemberCard {...teamData.leadership.facultyAdvisor} />
-            </div>
-          </motion.div>
-
-          {/* Divisions */}
-          {Object.entries(teamData.divisions).map(([division, { cores, jointCores }], index) => (
-            <motion.div
-              key={division}
+    <>
+      <Navbar />
+      <div ref={mountRef} className="min-h-screen">
+        <div className="relative z-10">
+          <div className="container mx-auto px-4 py-20 pt-24">
+            {/* Leadership Section */}
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="mb-20"
+              transition={{ duration: 0.6 }}
+              className="flex flex-col items-center mb-20"
             >
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">
-                {division}
-              </h2>
-              {cores.length > 0 && (
-                <div className="mb-8">
-                  <h3 className="text-2xl font-semibold text-white mb-6 text-center">Cores</h3>
-                  <div className="flex flex-wrap justify-center gap-8">
-                    {cores.map((member) => (
-                      <TeamMemberCard key={member.name} {...member} />
-                    ))}
-                  </div>
-                </div>
-              )}
-              {jointCores.length > 0 && (
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-6 text-center">Joint Cores</h3>
-                  <div className="flex flex-wrap justify-center gap-8">
-                    {jointCores.map((member) => (
-                      <TeamMemberCard key={member.name} {...member} />
-                    ))}
-                  </div>
-                </div>
-              )}
+              <h2 className="text-4xl font-bold text-white mb-12 text-center">Leadership</h2>
+              <TeamMemberCard {...teamData.leadership.head} />
+              <div className="mt-12 flex flex-wrap justify-center gap-8">
+                <TeamMemberCard {...teamData.leadership.techLead} />
+                <TeamMemberCard {...teamData.leadership.facultyAdvisor} />
+              </div>
             </motion.div>
-          ))}
+
+            {/* Divisions */}
+            {Object.entries(teamData.divisions).map(([division, { cores, jointCores }], index) => (
+              <motion.div
+                key={division}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="mb-20"
+              >
+                <h2 className="text-3xl font-bold text-white mb-8 text-center">
+                  {division}
+                </h2>
+                {cores.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-semibold text-white mb-6 text-center">Cores</h3>
+                    <div className="flex flex-wrap justify-center gap-8">
+                      {cores.map((member) => (
+                        <TeamMemberCard key={member.name} {...member} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {jointCores.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-white mb-6 text-center">Joint Cores</h3>
+                    <div className="flex flex-wrap justify-center gap-8">
+                      {jointCores.map((member) => (
+                        <TeamMemberCard key={member.name} {...member} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

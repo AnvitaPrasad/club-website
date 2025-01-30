@@ -213,3 +213,11 @@ body {
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
+
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}

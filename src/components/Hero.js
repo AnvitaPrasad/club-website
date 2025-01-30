@@ -1,4 +1,3 @@
-// src/components/Hero.js
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
@@ -198,9 +197,11 @@ const Hero = () => {
       }
     };
 
-    // Mouse handling
+    // Mouse handling with scroll detection
     let mouse = { x: 0, y: 0 };
     const uSpeed = 0.001;
+    let isScrolling = false;
+    let scrollTimeout;
     
     const handleMouseMove = (event) => {
       event.preventDefault();
@@ -209,19 +210,31 @@ const Hero = () => {
     };
 
     const handleTouchStart = (event) => {
-      if (event.touches.length === 1) {
-        event.preventDefault();
-        mouse.x = event.touches[0].pageX - window.innerWidth / 2;
-        mouse.y = event.touches[0].pageY - window.innerHeight / 2;
+      if (event.touches.length === 1 && !isScrolling) {
+        mouse.x = (event.touches[0].pageX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.touches[0].pageY / window.innerHeight) * 2 + 1;
       }
     };
 
     const handleTouchMove = (event) => {
-      if (event.touches.length === 1) {
-        event.preventDefault();
-        mouse.x = event.touches[0].pageX - window.innerWidth / 2;
-        mouse.y = event.touches[0].pageY - window.innerHeight / 2;
+      if (event.touches.length === 1 && !isScrolling) {
+        mouse.x = (event.touches[0].pageX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.touches[0].pageY / window.innerHeight) * 2 + 1;
       }
+    };
+
+    const handleScroll = () => {
+      isScrolling = true;
+      mouse.x = 0;
+      mouse.y = 0;
+      
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
     };
 
     const handleResize = () => {
@@ -233,6 +246,7 @@ const Hero = () => {
     window.addEventListener('mousemove', handleMouseMove, false);
     window.addEventListener('touchstart', handleTouchStart, false);
     window.addEventListener('touchmove', handleTouchMove, false);
+    window.addEventListener('scroll', handleScroll, false);
     window.addEventListener('resize', handleResize, false);
 
     const animate = () => {
@@ -259,6 +273,7 @@ const Hero = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
       mountRef.current?.removeChild(renderer.domElement);
       renderer.dispose();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CHARS = "!@#$%^&*():{};|,.<>/?";
@@ -52,13 +52,46 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavigation = (path, section = null) => {
+    setIsOpen(false);
+    
+    if (location.pathname !== '/' && section) {
+      navigate('/', { state: { scrollTo: section } });
+    } else if (section) {
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(path);
+    }
+  };
+
+  useEffect(() => {
+    if (location.pathname === '/' && location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
+
+  const navItems = [
+    { text: 'Home', path: '/' },
+    { text: 'About', path: '/', section: 'about' },
+    { text: 'Events', path: '/', section: 'events' },
+    { text: 'Team', path: '/team' }
+  ];
 
   return (
     <>
@@ -94,27 +127,19 @@ const Navbar = () => {
             </button>
 
             <div className="hidden md:flex items-center space-x-8">
-              {isHomePage ? (
-                ['About', 'Events'].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg"
-                  >
-                    <EncryptText text={item} />
-                  </a>
-                ))
-              ) : null}
-              <Link
-                to="/team"
-                className="text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg"
-              >
-                <EncryptText text="Team" />
-              </Link>
+              {navItems.map(({ text, path, section }) => (
+                <button
+                  key={text}
+                  onClick={() => handleNavigation(path, section)}
+                  className="text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg no-underline focus:outline-none"
+                >
+                  <EncryptText text={text} />
+                </button>
+              ))}
               
               <button
                 onClick={() => setShowQR(true)}
-                className="flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors"
+                className="flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors focus:outline-none"
               >
                 <svg 
                   className="h-6 w-6 text-white"
@@ -135,32 +160,22 @@ const Navbar = () => {
 
           <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
             <div className="px-2 pt-2 pb-3 space-y-1 bg-black/80">
-              {isHomePage ? (
-                ['About', 'Events'].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="block text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg text-center"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <EncryptText text={item} />
-                  </a>
-                ))
-              ) : null}
-              <Link
-                to="/team"
-                className="block text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg text-center"
-                onClick={() => setIsOpen(false)}
-              >
-                <EncryptText text="Team" />
-              </Link>
+              {navItems.map(({ text, path, section }) => (
+                <button
+                  key={text}
+                  onClick={() => handleNavigation(path, section)}
+                  className="block w-full text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg text-center no-underline focus:outline-none"
+                >
+                  <EncryptText text={text} />
+                </button>
+              ))}
               <div className="flex justify-center">
                 <button
                   onClick={() => {
                     setShowQR(true);
                     setIsOpen(false);
                   }}
-                  className="text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg"
+                  className="text-white hover:text-gray-300 transition-colors px-3 py-2 text-lg no-underline focus:outline-none"
                 >
                   Join WhatsApp
                 </button>
@@ -184,13 +199,13 @@ const Navbar = () => {
               animate={{ scale: 1 }}
               exit={{ scale: 0.5 }}
               onClick={e => e.stopPropagation()}
-              className="backdrop-blur-md rounded-lg p-8 max-w-md w-full border border-white/20"
+              className="bg-black/20 backdrop-blur-md rounded-xl p-8 max-w-md w-full text-center border border-white/5 shadow-lg ring-1 ring-white/10"
             >
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-white">Join Our WhatsApp Group</h3>
+                <h3 className="text-2xl font-bold text-white w-full text-center">Join Our WhatsApp Group</h3>
                 <button
                   onClick={() => setShowQR(false)}
-                  className="text-white/70 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-white transition-colors absolute right-8"
                 >
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

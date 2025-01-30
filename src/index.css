@@ -1,0 +1,223 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles matching your 3D theme */
+body {
+  color: white;
+  margin: 0;
+  text-align: center;
+  background-color: black;
+  cursor: crosshair;
+  overflow-x: hidden;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+p {
+  color: rgba(255,255,255, 0.5);
+}
+
+.disable-selection {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Shared Page Styles */
+.page-container {
+  min-height: 100vh;
+  padding-top: 5rem;
+  background: linear-gradient(to bottom, #000000, #1a1a1a);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(240, 32, 80, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Enhanced card styling */
+.enhanced-card {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.enhanced-card:hover {
+  border-color: rgba(240, 32, 80, 0.5);
+  box-shadow: 0 0 20px rgba(240, 32, 80, 0.2);
+}
+
+/* Utility pages styling */
+.utility-page {
+  @apply min-h-screen pt-24 pb-16 px-4;
+  background: black;
+}
+
+.utility-content {
+  @apply max-w-4xl mx-auto bg-black/60 backdrop-blur-md p-8 rounded-lg;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Flip Card Animation */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Floating particles animation */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #F02050;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.3;
+  animation: float 5s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+/* Enhance existing enhanced-card class */
+.enhanced-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(240, 32, 80, 0.1), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.enhanced-card:hover::after {
+  opacity: 1;
+}
+
+/* Updated particle animation */
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #F02050;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.2;
+  animation: floatParticle 8s infinite;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -15px);
+  }
+  50% {
+    transform: translate(-5px, -25px);
+  }
+  75% {
+    transform: translate(-15px, -15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Add different animation delays for variety */
+.particle:nth-child(3n) {
+  animation-delay: -2s;
+  animation-duration: 12s;
+}
+
+.particle:nth-child(3n + 1) {
+  animation-delay: -4s;
+  animation-duration: 10s;
+}
+
+.particle:nth-child(3n + 2) {
+  animation-delay: -6s;
+  animation-duration: 14s;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.wing-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}

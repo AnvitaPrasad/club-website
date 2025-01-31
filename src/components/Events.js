@@ -13,28 +13,28 @@ const Events = () => {
       title: "Mock ICPC Contest",
       eyebrow: "01",
       description: "Simulated the ICPC experience.",
-      image: "/event1.jpg"
+      image: "/eventicpc.jpg"
     },
     {
       id: "1",
       title: "Intro to AI",
       eyebrow: "02",
       description: "Introduced the basics of AI.",
-      image: "/event2.jpg"
+      image: "/eventai.jpg"
     },
     {
       id: "2",
       title: "First CP Contest 2024",
       eyebrow: "03",
       description: "CP contest for second-years.",
-      image: "/event3.jpg"
+      image: "/eventcp.jpg"
     },
     {
       id: "3",
       title: "POTD",
       eyebrow: "04",
       description: "Problem of the day.",
-      image: "/event1.1.jpg"
+      image: "/eventpotd.jpg"
     }
   ];
 

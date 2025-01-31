@@ -118,28 +118,28 @@ const WingsDetails = () => {
       description: "Our CP wing is dedicated to enhancing algorithmic problem-solving and competitive programming skills. We host regular contests and interactive sessions, providing valuable resources and guidance to help members excel in competitive programming. Additionally, we foster a collaborative environment for skill development and knowledge sharing, empowering members to refine their techniques and strategies for tackling complex challenges.",
       events: [
         {
-          image: "/cp8.jpg"
+          image: "/cpicpc.jpg"
         },
         {
-          image: "/cp1.jpg"
+          image: "/cppotd2.jpg"
         },
         {
-          image: "/cp9.jpg"
+          image: "/cpgraph.jpg"
         },
         {
-          image: "/cp10.jpg"
+          image: "/cpcontest24.jpg"
         },
         {
-          image: "/cp6.jpg"
+          image: "/cppotd1.jpg"
         },
         {
-          image: "/cp3.jpg"
+          image: "/cpcodeastra.jpg"
         },
         {
-          image: "/cp4.jpg"
+          image: "/cpstarters57.jpg"
         },
         {
-          image: "/cp5.jpg"
+          image: "/cpcontest2022.jpg"
         }
       ]
     },
@@ -148,16 +148,16 @@ const WingsDetails = () => {
       description: "Our EDITH wing focuses on educating members about Information Technology and Hardware, bridging the gap between theory and practice. We conduct workshops, hands-on sessions, and expert talks, helping members explore the latest trends in IT and hardware. By fostering an interactive learning environment, we encourage experimentation with technologies, troubleshooting, and real-world problem-solving, equipping members for success in the tech industry.",
       events: [
         {
-          image: "/e1.jpg"
+          image: "/edithhacking.jpg"
         },
         {
-          image: "/e2.jpg"
+          image: "/edithweb.jpg"
         },
         {
-          image: "/e3.jpg"
+          image: "/edithlinux.jpg"
         },
         {
-          image: "/e4.jpg"
+          image: "/edithwebgl.jpg"
         }
       ]
     },
@@ -166,7 +166,7 @@ const WingsDetails = () => {
       description: "The AI wing delves into cutting-edge developments in machine learning, deep learning, and artificial intelligence. We engage in research projects and hands-on applications, providing members with opportunities to explore the latest advancements in AI. Through workshops, collaborative projects, and expert sessions, we foster a deeper understanding of AI technologies and their real-world impact. This wing aims to equip members with the skills to innovate and contribute to the rapidly growing field of artificial intelligence.",
       events: [
         {
-          image: "/ai1.jpg"
+          image: "/aiintro.jpg"
         }
       ]
     },
@@ -175,7 +175,7 @@ const WingsDetails = () => {
       description: "PRIT (Project, Research & Industrial Talks) is the wing of the CS Club dedicated to bridging the gap between academic learning and industry practices. We focus on driving hands-on projects, fostering research initiatives, and organizing talks by industry professionals to provide students with a comprehensive understanding of real-world applications. Our goal is to ensure that students are not only equipped with textbook knowledge but also prepared for the challenges they’ll face in the industry. We create a dynamic learning environment where fun, enthusiasm, and practical experience go hand in hand.",
       events: [
         {
-          image: "/pr1.jpg"
+          image: "/prithack.jpg"
         }
       ]
     },
@@ -184,10 +184,10 @@ const WingsDetails = () => {
       description: "The Networking team is the creative hub responsible for spreading the word about our events and initiatives. They design eye-catching posters, manage social media posts, and create offline displays to keep the campus informed. By sharing event details on Instagram, sending out emails, and ensuring widespread publicity, the team plays a key role in engaging students and maximizing participation. Their efforts help create visibility and excitement, ensuring that every event reaches its intended audience and receives the attention it deserves.",
       events: [
         {
-          image: "/n1.jpg"
+          image: "/networkinginsta.jpg"
         },
         {
-          image: "/n2.jpg"
+          image: "/networkinglinkedin.jpg"
         }
       ]
     }
